@@ -91,18 +91,16 @@ public class Podometro {
             case 3: 
             case 4:
             case 5: totalPasosLaborables += pasos;
-                                            break;
+            break;
             case SABADO: totalPasosSabado += pasos;
-                                             break;        
+            break;        
             case DOMINGO: totalPasosDomingo += pasos;
         }
         totalDistanciaSemana = longitudZancada * (totalPasosLaborables + totalPasosSabado + totalPasosDomingo);
         totalDistanciaFinSemana = longitudZancada * (totalPasosSabado + totalPasosDomingo);
         totalDistanciaFinSemana = longitudZancada * (totalPasosSabado + totalPasosDomingo);
-        int inicio = (int) (horaInicio / 100) * 60 + horaInicio % 100;
-        int fin = (int) (horaFin / 100) * 60 + horaFin % 100;
-        tiempo += fin - inicio;
-        if ((int)horaFin / 100 > 21) {
+        tiempo += (horaFin - horaInicio) / 100 * 60 + (horaFin - horaInicio) % 100;
+        if (horaFin / 100 >= 21) {
             caminatasNoche++;
         }
     }
@@ -121,10 +119,8 @@ public class Podometro {
         } else {
             aux = "MUJER";
         }
-        System.out.println("Configuración del podómetro\n*********************************\nAltura: "
-            + altura / 100 + "mtos\nSexo: " + aux + 
-            "\nLongitud zancada: " + longitudZancada / 100 + "mtos");
-
+        System.out.println("Configuración del podómetro\n*********************************\nAltura: " + altura / 100 + "mtos\nSexo: " + 
+            aux + "\nLongitud zancada: " + longitudZancada / 100 + "mtos");
     }
 
     /**
@@ -135,21 +131,17 @@ public class Podometro {
      *  
      */
     public void printEstadísticas() {
-        int horas = tiempo / 100;
-        int minutos = tiempo % 100;
-        if (minutos >= 60) {
-            horas++;
-            minutos -= 60;
+        int horas = 0;
+        int minutos = 0;
+        if (tiempo >= 60) {
+            horas = tiempo / 60;
+            minutos = tiempo % 60;
         }
-        System.out.println("\nEstadísticas\n*********************************\nDistancia recorrida toda la semana: " 
-            + totalDistanciaSemana / 100000 + "km\nDistancia recorrida fin de semana: " 
-            + totalDistanciaFinSemana /100000 + "km\n\nNº pasos días laborables: " 
-            + totalPasosLaborables + "\nNº pasos SÁBADO: " + 
-            totalPasosSabado + "\nNº pasos DOMINGO: " + totalPasosDomingo 
-            + "\nNº caminatas realizadas en la semana a partir de las 21h: " 
-            + caminatasNoche + "\nTiempo total caminando en la semana: "
-            + horas +"h. y " + minutos + "m.");
-
+        System.out.println("\nEstadísticas\n*********************************\nDistancia recorrida toda la semana: " + 
+            totalDistanciaSemana / 100000 + "km\nDistancia recorrida fin de semana: " + totalDistanciaFinSemana /100000 
+            + "km\n\nNº pasos días laborables: " + totalPasosLaborables + "\nNº pasos SÁBADO: " + totalPasosSabado + 
+            "\nNº pasos DOMINGO: " + totalPasosDomingo + "\nNº caminatas realizadas en la semana a partir de las 21h: " 
+            + caminatasNoche + "\nTiempo total caminando en la semana: "+ horas +"h. y " + minutos + "m.");
     }
 
     /**
