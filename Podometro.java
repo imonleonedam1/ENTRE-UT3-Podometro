@@ -24,7 +24,7 @@ public class Podometro {
     private double totalDistanciaFinSemana;
     private int tiempo;
     private int caminatasNoche;
-
+    
     /**
      * Inicializa el podómetro con la marca indicada por el parámetro.
      * El resto de atributos se ponen a 0 y el sexo, por defecto, es mujer
@@ -163,7 +163,6 @@ public class Podometro {
             aux = "LABORABLES";
         }    
         return aux;
-
     }
 
     /**
@@ -182,7 +181,5 @@ public class Podometro {
         totalDistanciaFinSemana = 0;
         tiempo = 0;
         caminatasNoche = 0;
-
     }
-
 }
