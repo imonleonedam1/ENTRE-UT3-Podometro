@@ -24,7 +24,7 @@ public class Podometro {
     private double totalDistanciaFinSemana;
     private int tiempo;
     private int caminatasNoche;
-    
+
     /**
      * Inicializa el podómetro con la marca indicada por el parámetro.
      * El resto de atributos se ponen a 0 y el sexo, por defecto, es mujer
@@ -99,8 +99,11 @@ public class Podometro {
         totalDistanciaSemana = longitudZancada * (totalPasosLaborables + totalPasosSabado + totalPasosDomingo);
         totalDistanciaFinSemana = longitudZancada * (totalPasosSabado + totalPasosDomingo);
         totalDistanciaFinSemana = longitudZancada * (totalPasosSabado + totalPasosDomingo);
-        tiempo += (horaFin - horaInicio) / 100 * 60 + (horaFin - horaInicio) % 100;
-        if (horaFin / 100 >= 21) {
+        int hInicio = horaInicio / 100 * 60;
+        int hFin = horaFin / 100 * 60;
+        int minutos = horaFin % 100 - horaInicio % 100;
+        tiempo += hFin - hInicio +  minutos;
+        if (horaInicio / 100 > 21) {
             caminatasNoche++;
         }
     }
@@ -119,8 +122,8 @@ public class Podometro {
         } else {
             aux = "MUJER";
         }
-        System.out.println("Configuración del podómetro\n*********************************\nAltura: " + altura / 100 + "mtos\nSexo: " + 
-            aux + "\nLongitud zancada: " + longitudZancada / 100 + "mtos");
+        System.out.println("Configuración del podómetro\n*********************************\nAltura: " + altura / 100 + " mtos\nSexo: " + 
+            aux + "\nLongitud zancada: " + longitudZancada / 100 + " mtos");
     }
 
     /**
@@ -138,8 +141,8 @@ public class Podometro {
             minutos = tiempo % 60;
         }
         System.out.println("\nEstadísticas\n*********************************\nDistancia recorrida toda la semana: " + 
-            totalDistanciaSemana / 100000 + "km\nDistancia recorrida fin de semana: " + totalDistanciaFinSemana /100000 
-            + "km\n\nNº pasos días laborables: " + totalPasosLaborables + "\nNº pasos SÁBADO: " + totalPasosSabado + 
+            totalDistanciaSemana / 100000 + " km\nDistancia recorrida fin de semana: " + totalDistanciaFinSemana /100000 
+            + " km\n\nNº pasos días laborables: " + totalPasosLaborables + "\nNº pasos SÁBADO: " + totalPasosSabado + 
             "\nNº pasos DOMINGO: " + totalPasosDomingo + "\nNº caminatas realizadas en la semana a partir de las 21h: " 
             + caminatasNoche + "\nTiempo total caminando en la semana: "+ horas +"h. y " + minutos + "m.");
     }
@@ -159,8 +162,8 @@ public class Podometro {
             aux = "SABADO";
         }
         else if (totalPasosDomingo > totalPasosSabado && 
-        totalPasosLaborables > totalPasosDomingo) {
-            aux = "LABORABLES";
+        totalPasosDomingo > totalPasosLaborables) {
+            aux = "DOMINGO";
         }    
         return aux;
     }
